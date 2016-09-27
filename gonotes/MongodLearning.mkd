@@ -13,9 +13,28 @@
 	] } )
 	到了mongo3.0+，db.addUser was removed, using db.createUser instead.
 
+	启动授权登录模式
+	mongod --dbpath ~/mgdb --auth
 	命令行登录选项
 	mongo -u root --authenticationDatabase admin -p
+	mongo --host 192.168.6.122 -u root --authenticationDatabase admin -p
+	还可以更改默认的端口设置
 
+	远程连接上去之后会显示
+	use admin
+	db.system.users.find()
+	Unauthorized not authorized on admin to execute command
+
+	下面是简单的解释
+	The userAdminAnyDatabase role does not grant permission to run getLog; that 
+	requires the clusterMonitor or clusterAdmin role:
+ 	https://docs.mongodb.org/manual/reference/built-in-roles/#clusterMonitor
+
+ 	The userAdminAnyDatabase role (and the userAdmin role that it is an extension of) simply gives your user the permission to read and write to the system.users collection to administer the users of a database. It doesn't allow the user to read or write to the actual collections of the database. For that, you need to grant the read or readWrite roles.
+
+ 	use admin
+ 	db.grantRolesToUser("root", ["readWrite"])
+ 	show collections
 
 # Ubuntu 开关mongodb
 	
