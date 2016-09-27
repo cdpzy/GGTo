@@ -1,0 +1,14 @@
+使用mongodb遇到的问题汇总
+===================
+
+# Mongodb Root User
+	http://stackoverflow.com/questions/20117104/mongodb-root-user
+	use admin
+	db.addUser( { user: "<username>",
+          pwd: "<password>",
+          roles: [ "userAdminAnyDatabase",
+                   "dbAdminAnyDatabase",
+                   "readWriteAnyDatabase"
+
+	] } )
+	到了mongo3.0+，db.addUser was removed, using db.createUser instead.
