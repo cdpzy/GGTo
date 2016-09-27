@@ -12,3 +12,17 @@
 
 	] } )
 	到了mongo3.0+，db.addUser was removed, using db.createUser instead.
+
+	命令行登录选项
+	mongo -u root --authenticationDatabase admin -p
+
+
+# Ubuntu 开关mongodb
+	
+	sudo service mongod stop
+	sudo service mongod start
+
+	windows 
+
+	net stop mongodb
+	net start mongodb
