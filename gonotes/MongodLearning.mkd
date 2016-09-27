@@ -36,6 +36,12 @@
  	db.grantRolesToUser("root", ["readWrite"])
  	show collections
 
+ 	使用/etc/mongodb.conf配置启动mongodb后不能远程连接，需要修改bindid
+ 	使用127.0.0.1那么只能本机连接过来
+ 	但是如果使用命令行
+ 	mongod --dbpath xxx --auth这样启动的话默认是可以远程连接过来的。
+
+
 # Ubuntu 开关mongodb
 	
 	sudo service mongod stop
