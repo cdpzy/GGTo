@@ -123,3 +123,6 @@ http://stackoverflow.com/questions/29745280/how-to-connect-mongodb-3-0-in-golang
 When I upgrade my mongodb server to version 3.0 from 2.6 it can't connect from golang use mgo.
 
 I add 'authMechanism=SCRAM-SHA-1' in connection string, and it still can't connect to the server. The error that I get is SASL support not enabled during build (-tags sasl)
+
+# 找到的说明
+http://denis.papathanasiou.org/posts/2012.10.14.post.html
