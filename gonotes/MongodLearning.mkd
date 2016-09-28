@@ -62,3 +62,64 @@
 	参考网页http://labix.org/mgo，这里还有一个例子
 	go get gopkg.in/mgo.v2
 	go get gopkg.in/check.v1
+
+
+# I am writing an application which writes to the mongodb rapidly. Too rapidly for mongodb and mgo to handle. My question is, is there a way for me to determine that mongo cannot keep up and start to block? But I also do not want to block unnecessarily. Here is a sample of code that emulates the problem:
+
+http://stackoverflow.com/questions/21346079/golang-mgo-pacing/36256598
+
+package main
+
+import (
+  "labix.org/v2/mgo"
+  "time"
+  "fmt"
+)
+
+// in database name is a string and age is an int
+
+type Dog struct{
+  Breed string "breed"
+}
+
+type Person struct{
+  Name string "name"
+  Pet Dog `bson:",inline"`
+  Ts        time.Time
+}
+
+func insert(session *mgo.Session, bob Person){
+  err := session.DB("db_log").C("people").Insert(&bob)
+  if err != nil {
+    panic("Could not insert into database")
+  }
+}
+
+func main() {
+  session, _ := mgo.Dial("localhost:27017")
+  bob := Person{Name : "Robert", Pet : Dog{}}
+  i := 0
+  for {
+    time.Sleep(time.Duration(1) * time.Microsecond)
+    i++
+    go insert(session, bob)
+  }
+}
+
+I suspect you will get much better performance if you allow Go to use multiple threads and Copy() then Close() your sessions.
+
+To answer your question, this probably a perfect use-case for a channel. Feed the items into the channel in one goroutine and consume them/write them to Mongo in another. You can adjust the size of the channel to suit your needs. The producer thread will block once the channel is full when it tries to send to it.
+
+You may also want to play with the Safe() method settings. Setting W:0 will put Mongo in a "fire and forget" mode, which will dramatically speed up performance at the risk of losing some data. You can also change the timeout time.
+
+# 2.6的连接方式不能使用
+go get labix.org/v2/mgo
+
+这里有一个3.0的样例
+https://github.com/Velkata/Golang-MongoDB3.0-Example
+
+http://stackoverflow.com/questions/29745280/how-to-connect-mongodb-3-0-in-golang
+
+When I upgrade my mongodb server to version 3.0 from 2.6 it can't connect from golang use mgo.
+
+I add 'authMechanism=SCRAM-SHA-1' in connection string, and it still can't connect to the server. The error that I get is SASL support not enabled during build (-tags sasl)
