@@ -38,6 +38,7 @@
 
  	使用/etc/mongodb.conf配置启动mongodb后不能远程连接，需要修改bindid
  	使用127.0.0.1那么只能本机连接过来
+ 	注意更改之后，本机连接也需要制定host
  	但是如果使用命令行
  	mongod --dbpath xxx --auth这样启动的话默认是可以远程连接过来的。
 
@@ -51,3 +52,13 @@
 
 	net stop mongodb
 	net start mongodb
+
+# Ubuntu MD5 sha
+	echo -n "xxxxx" | md5sum
+	echo -n "xxxxx" | shasum
+
+
+# install go mongo driver
+	参考网页http://labix.org/mgo，这里还有一个例子
+	go get gopkg.in/mgo.v2
+	go get gopkg.in/check.v1
