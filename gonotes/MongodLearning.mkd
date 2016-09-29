@@ -129,3 +129,8 @@ http://denis.papathanasiou.org/posts/2012.10.14.post.html
 
 # 实际上官方的连接
 https://docs.mongodb.com/manual/tutorial/enable-authentication/
+
+
+# mongodump 的第一个使用用例
+	mongodump --host 192.168.6.122 --authenticationDatabase admin -u root -p --db players --collections playerinfo
+	这个命令执行之后就会在当前目录下面建立一个dump目录把信息放在内部
