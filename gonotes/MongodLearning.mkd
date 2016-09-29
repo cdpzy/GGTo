@@ -129,3 +129,14 @@ http://denis.papathanasiou.org/posts/2012.10.14.post.html
 
 # 实际上官方的连接
 https://docs.mongodb.com/manual/tutorial/enable-authentication/
+
+# MAC 上面安装成启动服务
+$ brew install mongodb
+To have launchd start mongodb at login:
+ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
+Then to load mongodb now:
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+Or, if you don't want/need launchctl, you can just run:
+mongod --config /usr/local/etc/mongod.conf
+==> Summary
+🍺  /usr/local/Cellar/mongodb/3.0.6: 17 files, 159M
