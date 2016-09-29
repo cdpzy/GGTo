@@ -132,5 +132,19 @@ https://docs.mongodb.com/manual/tutorial/enable-authentication/
 
 
 # mongodump 的第一个使用用例
+	dump指定db的指定collection
 	mongodump --host 192.168.6.122 --authenticationDatabase admin -u root -p --db players --collections playerinfo
+	dump指定db某些collection除外
+	mongodump --host 192.168.6.122 --authenticationDatabase admin -u root -p --db players --excludeCollections playerinfo
 	这个命令执行之后就会在当前目录下面建立一个dump目录把信息放在内部
+
+	指定输出目录是
+	--out
+	压缩输出
+	--gzip
+
+# mgo使用bson
+	bson.M{"$or": []bson.M{
+	    {"dependencies.provider_id": "abc"},
+	    {"actions.provider_id": "abc"},
+	}}
