@@ -139,4 +139,8 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 Or, if you don't want/need launchctl, you can just run:
 mongod --config /usr/local/etc/mongod.conf
 ==> Summary
-🍺  /usr/local/Cellar/mongodb/3.0.6: 17 files, 159M
+/usr/local/Cellar/mongodb/3.0.6: 17 files, 159M
+
+# mongodump 的第一个使用用例
+	mongodump --host 192.168.6.122 --authenticationDatabase admin -u root -p --db players --collections playerinfo
+	这个命令执行之后就会在当前目录下面建立一个dump目录把信息放在内部
