@@ -1,0 +1,5 @@
+# 使用go sqlite3 驱动
+
+## 获得
+
+go get github.com/mattn/go-sqlite3
