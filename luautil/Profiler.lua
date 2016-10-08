@@ -10,9 +10,9 @@ local table = table
 local debug = debug
 local pairs = pairs
 local Profiler = {}
-local _M = Profiler
+local M = Profiler
 
-function _M:activate( )
+function M:activate( )
     self.calls = {}
     self.total = {}
     self.this = {}
@@ -37,12 +37,12 @@ function _M:activate( )
     debug.sethook(hook_counter, "cr")
 end
 
-function _M:deactivate()
+function M:deactivate()
     self.ended = os.clock()
     debug.sethook( nil, "cr")
 end
 
-function _M:print_results()
+function M:print_results()
     local file = io.open("luaprofiler.log", 'wb')
     file:write("========Profiler Result=============================================================\n")
     table.sort(self.total, function(a, b)
@@ -55,4 +55,4 @@ function _M:print_results()
     file:close()
 end
 
-return _M
+return M
