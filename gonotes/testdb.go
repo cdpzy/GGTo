@@ -8,8 +8,6 @@ import (
 )
 
 func main() {
-	//url := "mogodb://root:123456@192.168.6.122:27017/players?--authenticationDatabase admin"
-
 	info := &mgo.DialInfo{
 		Addrs:    []string{"192.168.6.122"},
 		Timeout:  60 * time.Second,
@@ -20,7 +18,6 @@ func main() {
 	}
 
 	session, err := mgo.DialWithInfo(info)
-	//session, err := mgo.Dial(url)
 
 	if nil != err {
 		fmt.Println("failed to dail ", err)
@@ -28,6 +25,7 @@ func main() {
 	}
 	defer session.Close()
 
+	// default mode is Strong, should use that.
 	session.SetMode(mgo.Monotonic, true)
 
 	// *mgo.Collection
