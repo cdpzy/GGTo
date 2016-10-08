@@ -1,12 +1,6 @@
 local cocreate, coresume, coyield, costatus = 
     coroutine.create, coroutine.resume, coroutine.yield, coroutine.status
-
    
-local t = cocreate(function () print("fuck") end)
-print(costatus(t))
-print(coroutine.status(t))
-coresume(t)
-
 local LOG = function(...)
     io.stderr:write(os.date"!%F %T")
     local n = select("#", ...)
@@ -15,7 +9,6 @@ local LOG = function(...)
     end
     io.stderr:write("\n")
 end
-
 
 function supervisor(...)
     local events = {}
