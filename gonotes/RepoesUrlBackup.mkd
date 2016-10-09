@@ -1,0 +1,5 @@
+# 记录所有有用的github项目地址
+
+* A Distributed init System  
+
+[fleet](https://github.com/coreos/fleet) ties together systemd and etcd into a simple distributed init system. Think of it as an extension of systemd that operates at the cluster level instead of the machine level.  
