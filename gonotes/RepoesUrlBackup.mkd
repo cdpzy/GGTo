@@ -2,11 +2,11 @@
 
 * A Distributed init System  
 
-[fleet](https://github.com/coreos/fleet) ties together systemd and etcd into a simple distributed init system. Think of it as an extension of systemd that operates at the cluster level instead of the machine level.  
+>[fleet](https://github.com/coreos/fleet) ties together systemd and etcd into a simple distributed init system. Think of it as an extension of systemd that operates at the cluster level instead of the machine level.  
 
 * 基于protocol buffer的RPC实现  
 
-[Zero](http://www.cnblogs.com/persistentsnail/p/3458342.html)给出了一个样例
+>[Zero](http://www.cnblogs.com/persistentsnail/p/3458342.html)给出了一个样例
 
 	service SearchService {
 	  rpc Search (SearchRequest) returns (SearchResponse);
