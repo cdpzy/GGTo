@@ -3,28 +3,52 @@
 ## Commands from [Yoichi-KIKUCHI](http://yo1000.hateblo.jp/entry/2015/03/07/230124)
 
 日语不懂，但是命令如下是可以执行的  
-1. apt-cache search docker
-
-2. check version
-
-3. install apt-transport-https
-
-4. setup docker stream
-
-5. install lxc-docker
+1. apt-cache search docker 1
 
 	docker.io
 	vim-syntax-docker
+2. check version 2
 
 	docker --version
+3. install apt-transport-https 3
 
 	apt-cache policy apt-transport-https
 	sudo apt-get install apt-transport-https
 	apt-cache policy apt-transport-https
+4. setup docker stream 4
 
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
 	sudo sh -c "echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+5. install lxc-docker 5
 
 	sudo apt-get update
 	sudo apt-cache search docker
 	sudo apt-get install lxc-docker
+
+## 遇到的问题
+
+1. Docker can't connect to docker daemon 1
+  1. *In Linux*
+
+  From Create a Docker group section it is neccesary add user to docker group:
+  	sudo usermod -aG docker $(whoami)
+  Log out and log back in. This ensures your user is running with the correct permissions.
+
+  2. *In Mac OSX*
+
+  As Dayel Ostraco says is necessary to add environments variables: 
+
+  	$ docker-machine start # start virtual machine for docker
+	$ docker-machine env  # it's helps to get environment variables
+	$ eval "$(docker-machine env default)" #set environment variables
+
+  The docker-machine start outputs the comments to guide the process 
+  [stackoverflow](http://stackoverflow.com/questions/21871479/docker-cant-connect-to-docker-daemon)
+
+  3. run command `sudo docker daemon`
+
+>Cannot connect to the Docker daemon. Is the docker daemon running on this host?
+
+  4. `sudo service docker start`
+
+> Failed to start docker.service: Unit docker.service is masked.
