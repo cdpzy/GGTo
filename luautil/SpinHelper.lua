@@ -65,7 +65,10 @@ M.stopAngle = {360, 315, 270, 225, 180, 135, 90, 45}
 M.transAngle = {0, 45, 90, 135, 180, 225, 270, 315}
 function M:doStop()
     local finalIdx = math.random(8)
-    finalIdx = 1
+
+    --for test 360 error
+    --self.currentAngle = 58
+    --finalIdx = 1
 
     local finalAngle = self.stopAngle[finalIdx]
     local angleDiff 
@@ -82,9 +85,12 @@ function M:doStop()
     self.stopSpeed = 2 * angleDiff / self.stopDuration
     self.daccRate = self.stopSpeed / self.stopDuration
 
+    local failed = true
+    local startCurrAngle = self.currentAngle
     --print(("start stop %.02f %.02f %.02f %.02f"):format(self.stopSpeed, self.currentAngle, finalAngle, angleDiff))
+    local angleChanged
     for i = 0, self.stopDuration * 2, .1 do
-        local angleChanged = self.stopSpeed * i - self.daccRate * i * i / 2
+        angleChanged = self.stopSpeed * i - self.daccRate * i * i / 2
         local delta = angleChanged - self.angleLastChanged
         self:calculateAngle(delta)
         --print(("start stop %.02f %.02f %.02f %.02f"):format(self.stopSpeed, self.currentAngle, finalAngle, angleDiff))
@@ -92,13 +98,17 @@ function M:doStop()
         self.angleLastChanged = angleChanged
 
         local diff = math.abs(self.currentAngle - finalAngle)
-        if diff < 0.7 then
-            print("from break")
+        if diff < 1.5 then
+            failed = false
+            --print("from break")
             break
         end
     end
 
-    print(("start stop %.02f %.02f %.02f %.02f"):format(self.stopSpeed, self.currentAngle, finalAngle, angleDiff))
+    if failed then
+        print(("start stop %.02f %.02f %.02f %.02f %.02f %.02f"):format(self.stopSpeed
+                            , startCurrAngle, angleChanged, self.currentAngle, finalAngle, angleDiff))
+    end
 end
 
 --------------------------------------------------------------------------------
@@ -108,12 +118,12 @@ end
 math.randomseed(tostring(os.time()):reverse():sub(1,6))
 local startAngle = math.random(360)
 function MasTest()
-    for i = 1, 1000 do
+    for i = 1, 100000 do
         startAngle = math.random(360)
         M:StartSpin(startAngle)
 
         local diff = math.abs(M.currentAngle - M.finalAngle)
-        if diff > 0.7 then
+        if diff > 1.5 then
             print(("failed %.02f %.02f %.02f %.02f"):format(i,diff,M.currentAngle, M.finalAngle))
         end
     end
