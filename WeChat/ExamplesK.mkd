@@ -1,0 +1,17 @@
+# 记录微信开发需要注意的
+
+集成之前准备的
+
+注册qq号码，设置应用
+open.weixin.qq.com  
+注册应用需要 28 * 28 , 108 * 108 icon
+注意签名生成工具 同包名与keystore关系密切
+
+adt/sdk/platform-tools/adb install ***.apk 安装到模拟器里面
+
+文档里面有一个android上手指南
+下载sdk放到lib目录下面
+
+
+微信支付
+微信商户平台 pay.weixin.qq.com 开通微信支付
