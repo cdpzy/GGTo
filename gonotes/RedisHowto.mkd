@@ -1,0 +1,93 @@
+# 在Ubuntu中安装Redis
+
+R利剑NoSQL系列文章，主要介绍通过R语言连接使用nosql数据库。涉及的NoSQL产品，包括Redis, MongoDB, HBase, Hive, Cassandra, Neo4j。希望通过我的介绍让广大的R语言爱好者，有更多的开发选择，做出更多地激动人心的应用。
+
+## 前言
+
+Redis是常用基于内存的Key-Value数据库，比Memcache更先进，支持多种数据结构，高效，快速。用Redis可以很轻松解决高并发的数据访问问题；做为时时监控信号处理也非常不错。
+
+## Redis在Windows中安装
+
+在Windows系统上安装Redis数据库是件非常简单的事情，下载可执行安装文件(exe)，双击安装即可。下载地址：https://github.com/rgl/redis/downloads
+
+Redis服务器运行命令：Redis安装目录/redis-server.exe
+Redis客户端运行命令：Redis安装目录/redis-cli.exe
+
+## Redis在Linux Ubuntu中安装
+
+本文使用的Linux是Ubuntu 12.04.2 LTS 64bit的系统，安装Redis数据库软件包可以通过apt-get实现。
+
+在Linux Ubuntu中安装Redis数据库
+
+	#安装redis服务端
+	~ sudo apt-get install redis-server
+
+安装完成后，redis服务会自动启动，
+
+	#检查redis系统进程
+	~ps -aux | grep redis
+
+	#通过启动命令检查redis服务状态
+	netstat -nlt | grep 6379
+
+	#通过
+	sudo /etc/init.d/redis-server status
+
+## 通过命令行客户端访问Redis
+
+	redis-cli
+	> help   # 命令行帮助
+	> keys * # 查看所有的key列表
+
+	> set key1 "hello"
+	> get key1
+
+	> set key2 1
+	> incr key2
+	> get key2
+
+	> lpush key3 a
+	> lpush key3 b
+	> lpush key3 c
+	> rpush key3 d
+	> lrange key3 0 3
+
+	> hset key4 name "abc"
+	> hset key4 email "abc@abc.com"
+	> hget key4 name
+	> hgetall key4
+
+	> key *
+	> del key1
+
+## 修改Redis的配置
+
+### 使用Redis的访问账号
+
+默认情况下，访问Redis服务器是不需要密码的，为了增加安全性我们需要设置Redis服务器的访问密码。设置访问密码为redisredis。
+
+用vi打开Redis服务器的配置文件redis.conf
+
+	~ sudo vi /etc/redis/redis.conf
+
+	#取消注释requirepass
+	requirepass redisredis
+
+### 让Redis服务器被远程访问
+
+默认情况下，Redis服务器不允许远程访问，只允许本机访问，所以我们需要设置打开远程访问的功能。
+
+用vi打开Redis服务器的配置文件redis.conf
+
+	~ sudo vi /etc/redis/redis.conf
+
+	#注释bind
+	#bind 127.0.0.1
+
+修改后，重启Redis服务器。
+
+	~ sudo /etc/init.d/redis-server restart
+
+远程访问
+
+	~ redis-cli -a redisredis -h 192.168.1.199
