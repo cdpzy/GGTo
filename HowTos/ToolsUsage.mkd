@@ -1,0 +1,6 @@
+# 记录工具软件的使用
+
+## 7z compress
+
+使用7z创建备份的时候需要注意，用户群组权限信息是不会保存的，如果需要过滤一些目录或者文件的话
+`7z a backup.7z -ppassword directory -xr!.svn`
