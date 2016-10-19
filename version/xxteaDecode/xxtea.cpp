@@ -15,7 +15,6 @@
  github: https://github.com/liut/pecl-xxtea
  
  *************************************************************************/
-#include "stdafx.h"
 #include "xxtea.h"
 #include <memory.h>
 #include <stdlib.h>
